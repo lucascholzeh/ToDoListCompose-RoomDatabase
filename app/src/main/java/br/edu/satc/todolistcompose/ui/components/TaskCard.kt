@@ -1,14 +1,19 @@
 package br.edu.satc.todolistcompose.ui.components
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -25,11 +30,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import br.edu.satc.todolistcompose.data.TaskData
 import br.edu.satc.todolistcompose.ui.theme.ToDoListComposeTheme
+import br.edu.satc.todolistcompose.util.ThemeMode
 
 @Composable
 fun TaskCard(
     taskData: TaskData,
-    onTaskCheckedChange: (isChecked: Boolean) -> Unit
+    onTaskCheckedChange: (Boolean) -> Unit,
+    onDeleteClick: () -> Unit
+
 ) {
 
     var complete by remember { mutableStateOf(taskData.complete) }
@@ -38,10 +46,13 @@ fun TaskCard(
         elevation = CardDefaults.cardElevation(
             defaultElevation = 6.dp
         ),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surface
+        ),
         modifier = Modifier
             .fillMaxWidth()
             .heightIn(min = 100.dp)
-            .padding(bottom = 16.dp, start = 8.dp, end = 8.dp)
+            .padding(bottom = 16.dp, start = 8.dp, end = 8.dp),
     ) {
         Column(
             modifier = Modifier
@@ -53,6 +64,13 @@ fun TaskCard(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
+                Icon(
+                    imageVector = Icons.Default.Delete,
+                    contentDescription = "Excluir",
+                    modifier = Modifier.clickable {
+                        onDeleteClick()
+                    }
+                )
                 Text(
                     text = taskData.title,
                     style = TextStyle(
@@ -74,15 +92,15 @@ fun TaskCard(
 @Preview(showBackground = true)
 @Composable
 fun TaskCardPreview() {
-    ToDoListComposeTheme {
+    ToDoListComposeTheme(themeMode = ThemeMode.LIGHT) {
         TaskCard(
-            TaskData(
+            taskData = TaskData(
                 title = "Estudar Jetpack Compose",
                 description = "Estudar os principais componentes do Jetpack Compose",
                 complete = false
-            )
-        ) {
-            // Ação ao marcar/desmarcar a tarefa
-        }
+            ),
+            onTaskCheckedChange = {},
+            onDeleteClick = {}
+        )
     }
 }

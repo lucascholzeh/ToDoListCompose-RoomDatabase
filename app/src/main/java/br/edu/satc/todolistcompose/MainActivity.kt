@@ -3,28 +3,47 @@ package br.edu.satc.todolistcompose
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import br.edu.satc.todolistcompose.data.TaskData
+import br.edu.satc.todolistcompose.data.local.AppDatabase
+import br.edu.satc.todolistcompose.data.repository.TaskRepository
 import br.edu.satc.todolistcompose.ui.screens.HomeScreen
 import br.edu.satc.todolistcompose.ui.theme.ToDoListComposeTheme
+import br.edu.satc.todolistcompose.ui.viewmodel.TaskViewModel
+import br.edu.satc.todolistcompose.util.ThemeMode
+import br.edu.satc.todolistcompose.util.ThemePreference
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent {
-            ToDoListComposeTheme {
-                HomeScreen()
+            val context = applicationContext
+            val themePref = ThemePreference(context)
+
+            var themeMode by remember { mutableStateOf(themePref.get()) }
+
+            val db = AppDatabase.getDatabase(context)
+            val repository = TaskRepository(db.taskDao())
+            val viewModel = TaskViewModel(repository)
+
+            ToDoListComposeTheme(themeMode = themeMode) {
+                HomeScreen(
+                    viewModel = viewModel,
+                    onToggleTheme = {
+                        themeMode = if (themeMode == ThemeMode.LIGHT)
+                            ThemeMode.DARK
+                        else
+                            ThemeMode.LIGHT
+
+                        themePref.save(themeMode)
+                    }
+                )
             }
         }
     }
 }
-
-var mockTaskData = mutableStateListOf(
-    TaskData(1, "Comprar pão", "Comprar pão na padaria", false),
-    TaskData(2, "Estudar Kotlin", "Estudar Kotlin para o curso de Android", true),
-    TaskData(3, "Ler um livro", "Ler o livro 'Clean Code'", false),
-    TaskData(4, "Fazer exercícios", "Fazer exercícios físicos por 30 minutos", true),
-    TaskData(5, "Assistir série", "Assistir a série 'Stranger Things'", false),
-    TaskData(6, "Cozinhar", "Cozinhar o jantar para a família", false)
-)

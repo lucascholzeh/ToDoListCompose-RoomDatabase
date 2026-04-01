@@ -5,6 +5,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
+import br.edu.satc.todolistcompose.util.ThemeMode
 
 val LightColors = lightColorScheme(
     primary = md_theme_light_primary,
@@ -70,14 +72,23 @@ val DarkColors = darkColorScheme(
 
 @Composable
 fun ToDoListComposeTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
+    themeMode: ThemeMode,
     content: @Composable () -> Unit
 ) {
 
+    val darkTheme = when (themeMode) {
+        ThemeMode.DARK -> true
+        ThemeMode.LIGHT -> false
+    }
+
+    val darkColorScheme = darkColorScheme(
+        background = DarkBackground,
+        surface = DarkSurface,
+        primary = Color(0xFFBB86FC)
+    )
+
     MaterialTheme(
-        colorScheme = LightColors,
+        colorScheme = if (darkTheme) DarkColors else LightColors,
         typography = Typography,
         content = content
     )

@@ -70,3 +70,6 @@ val md_theme_dark_inverseSurface = Color(0xFFDFE4DF)
 val md_theme_dark_inverseOnSurface = Color(0xFF2D312E)
 val md_theme_dark_inversePrimary = Color(0xFF1F6F50)
 val md_theme_dark_scrim = Color(0xFF000000)
+
+val DarkBackground = Color(0xFF121212) // fundo (mais claro)
+val DarkSurface = Color(0xFF1E1E1E)    // cards / botões
