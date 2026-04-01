@@ -1,59 +1,117 @@
-# To Do List Compose - Exercício de Persistência com Room Database
+# 📱 ToDo List App - Jetpack Compose + Room
 
-Este projeto é a base para um exercício prático da disciplina de Desenvolvimento Mobile. O objetivo principal é implementar a camada de persistência de dados em um aplicativo de lista de tarefas (To Do List) utilizando **Room Database** e **SharedPreferences** no Android, com interface construída em **Jetpack Compose**.
+## 📖 Sobre o Projeto
 
-## Objetivo do Exercício
+Este projeto é uma aplicação de **Lista de Tarefas (ToDo List)** desenvolvida com **Android Nativo usando Kotlin**, com foco em persistência de dados e boas práticas de arquitetura.
 
-Compreender e aplicar conceitos de persistência de dados no desenvolvimento de aplicativos Android nativos, utilizando:
-- **SQLite com Room Database** para armazenamento local.
-- **SharedPreferences** para persistência de configurações simples.
+O objetivo principal é praticar:
 
-## Funcionalidades do App
+- Jetpack Compose (UI moderna)
+- Room Database (SQLite)
+- Arquitetura MVVM
+- Gerenciamento de estado com ViewModel
+- Persistência de preferências com SharedPreferences
 
-O aplicativo possui uma interface pronta, que permite:
-- Visualizar uma lista de tarefas.
-- Criar novas tarefas.
-- Marcar tarefas como concluídas.
+---
 
-O objetivo do exercício é implementar a camada de persistência para que:
-1. As tarefas criadas sejam salvas no banco de dados.
-2. Ao abrir o aplicativo, a lista de tarefas seja carregada a partir do banco de dados.
+## 🚀 Funcionalidades
 
-## Instruções para o Exercício
+- ✅ Criar novas tarefas  
+- 📋 Listar tarefas salvas  
+- ✔️ Marcar tarefas como concluídas  
+- 🗑️ Excluir tarefas  
+- 🌗 Alternar entre tema claro e escuro  
+- 💾 Persistência de dados com Room  
+- ⚙️ Salvamento de tema com SharedPreferences  
 
-1. **Clone o repositório**:
-   ```bash
-   git clone https://github.com/thyerrimezzari/BaseToDoListCompose.git
-   ```
+---
 
-2. **Analise a camada visual**:
-   - Compreenda o funcionamento da interface construída com **Jetpack Compose**.
-   - Identifique os pontos onde será necessário integrar a persistência de dados.
+## 🏗️ Arquitetura
 
-3. **Implemente o Room Database**:
-   - Crie as entidades, DAOs e o banco de dados para armazenar as tarefas.
-   - Garanta que as tarefas criadas sejam salvas no banco de dados.
+O projeto segue o padrão **MVVM (Model-View-ViewModel)**:
 
-4. **Integre a persistência com a interface**:
-   - Ao criar uma nova tarefa, insira-a no banco de dados e atualize a lista exibida.
-   - Ao abrir o aplicativo, carregue a lista de tarefas a partir do banco de dados.
+- **Model** → Room (Entity, DAO, Database)
+- **ViewModel** → Lógica de negócio e estado
+- **View (UI)** → Jetpack Compose
 
-5. **Utilize SharedPreferences**:
-   - Adicione persistência para configurações simples, se necessário.
+---
 
-6. **Teste o aplicativo**:
-   - Certifique-se de que as tarefas são salvas e carregadas corretamente.
-   - Verifique se a interface reflete as alterações no banco de dados.
+## 🛠️ Tecnologias Utilizadas
 
-## Recursos Adicionais
+- Kotlin  
+- Jetpack Compose  
+- Room Database  
+- ViewModel  
+- StateFlow  
+- SharedPreferences  
+- Material 3  
 
-- **Slides da aula**: Consulte os materiais fornecidos na disciplina.
-- **Exemplos de código**: Utilize os aplicativos de exemplo como referência.
-- **Documentação oficial**:
-  - [Room Database](https://developer.android.com/training/data-storage/room)
-  - [Jetpack Compose](https://developer.android.com/jetpack/compose)
+---
 
-## Conclusão
+## 📂 Estrutura do Projeto
 
-Este exercício é uma oportunidade prática para consolidar os conceitos de persistência de dados no desenvolvimento Android. Ao final, o aplicativo estará funcional, com uma camada de persistência integrada à interface.
+app/
+├── data/
+│ ├── local/ # Room (Entity, DAO, Database)
+│ └── repository/
+├── ui/
+│ ├── components/
+│ ├── screens/
+│ └── theme/
+├── viewmodel/
+└── MainActivity.kt
 
+
+---
+
+## ⚙️ Como Funciona
+
+- As tarefas são armazenadas localmente usando **Room Database**
+- A UI observa os dados com **StateFlow**
+- O **ViewModel** faz a comunicação entre UI e dados
+- O tema escolhido é salvo com **SharedPreferences**
+- Ao abrir o app, as tarefas são carregadas automaticamente
+
+---
+
+## 🌗 Sistema de Tema
+
+O app possui:
+
+- Modo Claro ☀️  
+- Modo Escuro 🌙  
+
+A preferência do usuário é salva localmente.
+
+---
+
+## ▶️ Como Executar
+
+1. Clone o repositório: https://github.com/lucascholzeh/ToDoListCompose-RoomDatabase.git
+
+2. Abra no **Android Studio**
+
+3. Execute em um emulador ou dispositivo físico
+
+---
+
+## 🎯 Objetivo de Aprendizado
+
+Este projeto foi desenvolvido para:
+
+- Entender persistência de dados no Android
+- Aplicar boas práticas de Clean Code
+- Utilizar arquitetura MVVM
+- Trabalhar com Jetpack Compose
+
+---
+
+## 👨‍💻 Autor
+
+Desenvolvido por **Lucas Scholze Hoffmann**
+
+---
+
+## 📌 Observações
+
+Projeto acadêmico com foco em aprendizado de desenvolvimento Android moderno.
